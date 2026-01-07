@@ -45,8 +45,8 @@ update_cava() {
         log "Cava colors updated successfully"
 
         if pgrep -x "cava" > /dev/null; then
-            # Get current theme name
-            THEME_NAME=$(basename "$(readlink ~/.config/omarchy/current/theme)" 2>/dev/null || echo "unknown")
+            # Get current theme name from theme.name file
+            THEME_NAME=$(cat ~/.config/omarchy/current/theme.name 2>/dev/null || echo "unknown")
 
             message="Colors updated for '$THEME_NAME' theme. Press 'c' in cava to reload colors."
             log "$message"

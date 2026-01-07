@@ -45,8 +45,8 @@ systemctl --user start cava-theme-monitor.service
 
 ## How It Works
 
-1. **Monitors** `~/.config/omarchy/current/theme` for changes
-2. **Extracts** colors from theme files (`custom_theme.json` or `alacritty.toml`)
+1. **Monitors** `~/.config/omarchy/current/` directory for theme changes
+2. **Extracts** colors from theme files in `~/.config/omarchy/current/theme/` (`custom_theme.json` or `alacritty.toml`)
 3. **Updates** cava config with new gradient colors
 4. **Notifies** you to reload cava (press `c` or `r` in cava)
 

@@ -58,14 +58,15 @@ systemctl --user disable cava-theme-monitor.service
 
 ## How it Works
 
-1. **File monitoring**: Watches `~/.config/omarchy/current/theme` symlink for changes using `inotifywait`
-2. **Color extraction**: When theme changes, extracts colors from either:
+1. **File monitoring**: Watches `~/.config/omarchy/current/` directory for theme changes using `inotifywait`
+2. **Theme detection**: Reads theme name from `~/.config/omarchy/current/theme.name`
+3. **Color extraction**: When theme changes, extracts colors from theme files in `~/.config/omarchy/current/theme/`:
    - `custom_theme.json` (for complex themes like chartzngrafs)
    - `alacritty.toml` (for standard themes like Dracula, Blue Ridge Dark, etc.)
-3. **Smart parsing**: Handles multiple hex formats (`#xxxxxx`, `0xxxxxxx`), inline comments, TOML sections, and malformed color entries
-4. **Color mapping**: Uses terminal colors (cyan, blue, magenta, yellow, red, green) for gradient
-5. **Config update**: Updates Cava's config with extracted colors, keeping background as terminal default
-6. **Notification**: Sends desktop notifications when colors update, prompting manual reload
+4. **Smart parsing**: Handles multiple hex formats (`#xxxxxx`, `0xxxxxxx`), inline comments, TOML sections, and malformed color entries
+5. **Color mapping**: Uses terminal colors (cyan, blue, magenta, yellow, red, green) for gradient
+6. **Config update**: Updates Cava's config with extracted colors, keeping background as terminal default
+7. **Notification**: Sends desktop notifications when colors update, prompting manual reload
 
 The colors are applied as a gradient from bottom to top of the visualizer, creating a dynamic color scheme that matches your current theme.
 

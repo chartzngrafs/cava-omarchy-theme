@@ -12,9 +12,10 @@ from pathlib import Path
 
 def get_current_theme_path():
     """Get the path to the current Omarchy theme."""
-    current_theme_link = Path.home() / '.config' / 'omarchy' / 'current' / 'theme'
-    if current_theme_link.exists() and current_theme_link.is_symlink():
-        return Path(current_theme_link.readlink())
+    # New structure: current/theme/ is a directory, not a symlink
+    current_theme_dir = Path.home() / '.config' / 'omarchy' / 'current' / 'theme'
+    if current_theme_dir.exists() and current_theme_dir.is_dir():
+        return current_theme_dir
     return None
 
 def parse_toml_colors(toml_path):
@@ -269,7 +270,12 @@ def main():
         print("Could not find current Omarchy theme")
         sys.exit(1)
 
-    theme_name = theme_path.name
+    # Get theme name from theme.name file
+    theme_name_file = Path.home() / '.config' / 'omarchy' / 'current' / 'theme.name'
+    if theme_name_file.exists():
+        theme_name = theme_name_file.read_text().strip()
+    else:
+        theme_name = "unknown"
     print(f"Current theme: {theme_name}")
 
     # Extract colors from theme
